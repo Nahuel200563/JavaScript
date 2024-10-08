@@ -1,40 +1,41 @@
-const aplicarDescuento = (precio, descuento) => {
-    precioConDescuento = precio - (precio * descuento) / 100;
-    return precioConDescuento;
-  };
-  
-  const calcularImpuestos = (precio) => {
-    precioConImpuestos = precio + precio * 0.21;
-    console.log(precioConImpuestos);
-    return precioConImpuestos;
-  };
-  
-  let totalDeProductos = 0;
-  let agregar = confirm("quieres agregar un producto");
-  
-  while (agregar) {
-    let precioDelProducto = parseFloat(
-      prompt("Por favor ingresa el precio del producto")
-    );
-  
-    if (!isNaN(precioDelProducto) && precioDelProducto > 0) {
-      const precioConIva = calcularImpuestos(precioDelProducto);
-      totalDeProductos += precioConIva;
-      alert("producto agregado satisfactoriamente");
-  
-      agregar = confirm("Quires agregar otro producto?");
-    } else {
-      alert("Precio invalido");
+
+
+let nombreApellido1 = (
+    prompt("ingresa el Nombre y Apellido del Primer Alumno") );
+    while (nombreApellido1 === "" || !isNaN(nombreApellido1)) {
+        alert("Por favor ingrese un nombre válido (no vacío y no un número)");
+        nombreApellido1 = prompt("Ingresa el Nombre y Apellido del Primer Alumno");
     }
-  }
-  
-  if (totalDeProductos > 0) {
-    let descuento = parseFloat(
-      prompt("por favor ingresa el porcentaje de descuento")
-    );
-  
-    const precioFinal = aplicarDescuento(totalDeProductos, descuento);
-    alert(`El precio final de tu compra es : ${precioFinal}`);
-  } else {
-    alert("No has agregado ningun producto");
-  }
+
+    let notaUno = (
+        parseFloat( prompt("ingresa la primera nota del alumno n1")));
+    while (notaUno === "" || isNaN(notaUno) || notaUno > 10 || 0 >= notaUno) {
+        alert ("Porfavor ingrese un numero valido del 1 al 10")
+        notaUno = parseFloat ( prompt("ingresa la primera nota del alumno n1"))
+    }
+
+    let notaDos = (
+        parseFloat( prompt("ingresa la Segunda nota del alumno n1")));
+    while (notaDos === "" || isNaN(notaDos) || notaDos > 10 || 0 >= notaDos) {
+        alert ("Porfavor ingrese un numero valido del 1 al 10")
+        notaDos = parseFloat ( prompt("ingresa la segunda nota del alumno n1"))
+    }
+
+    let notaTres = (
+        parseFloat( prompt("ingresa la tercera nota del alumno n1")));
+    while (notaTres === "" || isNaN(notaTres) || notaTres > 10 || 0 >= notaTres) {
+        alert ("Porfavor ingrese un numero valido del 1 al 10")
+        notaTres = parseFloat ( prompt("ingresa la Tercera nota del alumno n1"))
+    }
+        
+promedioAlumno1 = (notaUno + notaDos + notaTres) / 3 ;  
+promedioAlumno1 = promedioAlumno1.toFixed(4);
+console.log( "El promedio de " + nombreApellido1 + " es " + promedioAlumno1  );
+
+
+
+
+
+
+
+
