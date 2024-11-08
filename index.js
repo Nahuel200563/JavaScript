@@ -84,3 +84,23 @@ const desaprobados = alumnos.filter(
 );
 console.log(`Los alumnos que aprobaron son `, aprobados);
 console.log(`Los alumnos desaprobados son`, desaprobados);
+
+const AlumnoB = [];
+
+function nose() {
+  const numerosAlumnos = parseFloat(
+    document.getElementById("cantidadAlumnos").value
+  );
+
+  const notasContainer = document.getElementById("notasContainer");
+  notasContainer.innerHTML = "";
+
+  for (let i = 0; i < numerosAlumnos * 3; i++) {
+    notasContainer.innerHTML += `<input class="notitas" type="number" min="0" max="10" id="nota${
+      i + 1
+    }" 
+    placeholder="Nota ${i + 1}"><br>`;
+    // const promedioFinal = notasContainer / 3;
+    // notasContainer.innerHTML = `<p>La nota final del alumno es ${notasContainer}</p>`;
+  }
+}

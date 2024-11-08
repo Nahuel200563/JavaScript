@@ -1,27 +1,67 @@
-/*
-*{
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; }
+
+    body {
+        background-color: rgb(192, 189, 189);
+    }
+
+    .inicio {
+        display: grid;
+        grid-template-columns: repeat(4, 10.5rem);
+        grid-template-rows: repeat(4, 10.5rem);
+        justify-content: center;
+        padding: 1.25rem;
+    }
+
+        h1{
+            font-size: 62px;
+            grid-column-start: 2;
+            grid-column-end: 4;
+            grid-row-start: 1;
+            grid-row-end: 2;
+            align-content: center;
+    }
+
+    #notasContainer {
+        justify-self: center;
+        grid-column-start: 1;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    button {
+        font-size: 20px;
+    }
+
+    #cantidadAlumnos{
+        width: 210px;
+        font-size: 20px;
+    }
+
+.head {
+    background-color: rgb(133, 10, 10);
+    width: 100vw;
+    height: 70px;
 }
 
-.contenedor {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-    background-color: #f0f0f0; 
+li{
+    font-size: 50px;
+    justify-self: center;
+    align-self: center;
+    list-style: none;
+    color: white;
+} 
+
+#nota1 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
-.caja {
-    width: 50%;
-    height: 80%;
-    background-color: #4CAF50; 
-    padding: 20px;
-    color: white; 
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center; 
+.promedioB {
+    display: none;
 }
-
-  */

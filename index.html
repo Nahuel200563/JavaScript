@@ -7,10 +7,29 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <!-- <div class="contenedor">
-        <div class="caja">
-        </div>
-    </div> -->
+<header>
+    <div class="head">
+        <ul>
+            <li>Promedio de Notas</li>
+        </ul>
+    </div>
+</header>
+
+<div class="inicio">
+<h1>¡Bienvenido!</h1>
+
+
+<div id="notasContainer">
+
+    <input type="number" min="0" max="10" id="cantidadAlumnos" placeholder="Cantidad de alumnos">
+    <button onclick="nose()">Generar Campos</button>
+    <button class="promedioB" onclick="calcularPromedios()">Calcular Promedios</button>
+
+</div>
+
+<div id="promediosContainer"></div>
+
+</div>
     <script src="./index.js "></script>
 </body>
 </html>
