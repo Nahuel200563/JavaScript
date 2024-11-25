@@ -65,3 +65,18 @@ li{
 .promedioB {
     display: none;
 }
+
+.fila {
+    margin: 1.25rem;
+}
+
+.notitas {
+    width: 70px;
+    margin: 2px;
+}
+
+#enviarNotas {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;   
+}

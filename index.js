@@ -1,106 +1,65 @@
-const alumnos = [];
-
-class Alumno {
-  constructor(nombre, notaUno, notaDos, notaTres) {
-    this.nombre = nombre;
-    this.notaUno = notaUno;
-    this.notaDos = notaDos;
-    this.notaTres = notaTres;
-  }
-  calculadoraDePromedios = () => {
-    return (this.notaUno + this.notaDos + this.notaTres) / 3;
-  };
-}
-
-const cantidadDeAlumnos = parseFloat(prompt(`Ingresa la cantidad de alumnos`));
-
-for (let i = 0; i < cantidadDeAlumnos; i++) {
-  let nombreApellido1 = prompt(
-    "Ingresa el Nombre y Apellido del Alumno " + (i + 1)
-  );
-  while (true) {
-    if (nombreApellido1 === null) {
-      alert(`Proceso cancelado`);
-      break;
-    } else {
-      while (nombreApellido1 === "" || !isNaN(nombreApellido1)) {
-        alert("Por favor ingrese un nombre válido (no vacío y no un número)");
-        nombreApellido1 = prompt(
-          `Ingresa el Nombre y Apellido del Alumno ${i + 1}`
-        );
-      }
-      let notaUno = parseFloat(
-        prompt(`Ingresa la primera nota del alumno ${i + 1}`)
-      );
-      while (isNaN(notaUno) || notaUno < 0 || notaUno > 10) {
-        alert("Por favor ingrese un número válido del 0 al 10");
-        notaUno = parseFloat(
-          prompt(`Ingresa la primera nota del alumno ${i + 1}`)
-        );
-      }
-      let notaDos = parseFloat(
-        prompt(`Ingresa la segunda nota del alumno ${i + 1}`)
-      );
-      while (isNaN(notaDos) || notaDos < 0 || notaDos > 10) {
-        alert("Por favor ingrese un número válido del 0 al 10");
-        notaDos = parseFloat(
-          prompt(`Ingresa la segunda nota del alumno ${i + 1}`)
-        );
-      }
-      let notaTres = parseFloat(
-        prompt(`Ingresa la tercera nota del alumno ${i + 1}`)
-      );
-      while (isNaN(notaTres) || notaTres < 0 || notaTres > 10) {
-        alert("Por favor ingrese un número válido del 0 al 10");
-        notaTres = parseFloat(
-          prompt(`Ingresa la tercera nota del alumno ${i + 1}`)
-        );
-      }
-
-      let nuevoAlumno = new Alumno(nombreApellido1, notaUno, notaDos, notaTres);
-      alumnos.push(nuevoAlumno);
-
-      let promedioAlumno = nuevoAlumno.calculadoraDePromedios();
-      console.log(
-        `El promedio de ${nombreApellido1} es ${promedioAlumno.toFixed(2)}`
-      );
-
-      if (promedioAlumno < 7) {
-        alert(`El Alumno ${nombreApellido1} desaprobó`);
-      } else {
-        alert(`El Alumno ${nombreApellido1} aprobó`);
-      }
-      break;
-    }
-  }
-}
-
-console.table(alumnos);
-const aprobados = alumnos.filter(
-  (alumnos) => alumnos.calculadoraDePromedios() >= 7
-);
-const desaprobados = alumnos.filter(
-  (alumnos) => alumnos.calculadoraDePromedios() < 7
-);
-console.log(`Los alumnos que aprobaron son `, aprobados);
-console.log(`Los alumnos desaprobados son`, desaprobados);
-
-const AlumnoB = [];
-
 function nose() {
-  const numerosAlumnos = parseFloat(
+  const numerosAlumnos = parseInt(
     document.getElementById("cantidadAlumnos").value
   );
-
   const notasContainer = document.getElementById("notasContainer");
   notasContainer.innerHTML = "";
 
-  for (let i = 0; i < numerosAlumnos * 3; i++) {
-    notasContainer.innerHTML += `<input class="notitas" type="number" min="0" max="10" id="nota${
+  for (let i = 0; i < numerosAlumnos; i++) {
+    let fila = `<input class="nombre" type="text" placeholder="Nombre Alumno ${
       i + 1
-    }" 
-    placeholder="Nota ${i + 1}"><br>`;
-    // const promedioFinal = notasContainer / 3;
-    // notasContainer.innerHTML = `<p>La nota final del alumno es ${notasContainer}</p>`;
+    }">`;
+    for (let j = 0; j < 3; j++) {
+      fila += `<input class="notitas" type="number" min="0" max="10" placeholder="Nota ${
+        i * 3 + j + 1
+      }">`;
+    }
+    fila += `<span class="promedio">Promedio: -</span>`;
+    notasContainer.innerHTML += `<div class="fila">${fila}</div>`;
   }
+  notasContainer.innerHTML += `<div class="boton-contenedor">
+  <button id="enviarNotas">Enviar Notas</button>
+  </div>`;
+  document.getElementById("enviarNotas").onclick = () => {
+    const filas = document.querySelectorAll(".fila");
+    const aprobados = [];
+    const desaprobados = [];
+    const now = luxon.DateTime.now().toISO();
+    console.log(`La nota se actualizó el día:`, now);
+    filas.forEach((fila) => {
+      const nombre = fila.querySelector(".nombre").value || "Sin nombre";
+      const notas = Array.from(fila.querySelectorAll(".notitas")).map(
+        (input) => parseFloat(input.value) || 0
+      );
+      const promedio = notas.reduce((a, b) => a + b, 0) / notas.length;
+      if (promedio >= 6) {
+        aprobados.push({ nombre, promedio: promedio.toFixed(2) });
+      } else {
+        desaprobados.push({ nombre, promedio: promedio.toFixed(2) });
+      }
+      fila.querySelector(
+        ".promedio"
+      ).textContent = `Promedio: ${promedio.toFixed(2)}`;
+    });
+    console.log("Aprobados:", aprobados);
+    console.log("Desaprobados:", desaprobados);
+    const datos = {
+      aprobados: aprobados,
+      desaprobados: desaprobados,
+    };
+    fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Datos guardados correctamente:", data);
+      })
+      .catch((error) => {
+        console.error("Error al guardar los datos:", error);
+      });
+  };
 }
